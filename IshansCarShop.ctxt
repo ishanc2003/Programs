@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=IshansCarShop
+comment1.params=
+comment1.target=IshansCarShop()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ IshansCarShop\r\n\ no\ parameter\ since\ this\ is\ always\ the\ first\ object\ in\ the\ history\r\n
+comment2.params=
+comment2.target=void\ nextChoice()
+comment3.params=
+comment3.target=void\ main()
+comment3.text=\r\n\ main\r\n\ starts\ the\ application.\ main\ loop\r\n
+numComments=4

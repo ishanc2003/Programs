@@ -1,0 +1,258 @@
+import java.io.*;
+
+/**
+ * Option is the common base class of all other classes in this application.
+ * It defines the common functions and contains the protected static variables
+ * accessible from all classes
+ *
+ * @author (Ishan Chakrabarty)
+ * @version (2018 09 25)
+ */
+public abstract class Option
+{
+    // the users input
+    protected   static          BufferedReader br;
+    // customer name - a class variable, readable from all subclasses
+    protected   static          String  customer;
+    // state of the application - 1 means finished, returning to top level
+    protected   static          int     state;
+    // scrolling welcome text
+    protected                   String  welcome;
+    // welcome message in a file
+    protected                   String  welcomeFile;
+    // the error to be displayed before the menu
+    protected                   String  error=null;
+    // name displayed on top of the menu
+    protected                   String  menuName;
+    // line displayed second
+    protected                   String  secondLine;
+    // name for each item option
+    protected                   String  item[];
+    // price for each item option
+    protected                   int     price[];
+    // last choice taken
+    protected                   int     choice=0;
+    // option created for that choice
+    protected                   Option  option;
+    // previous options
+    protected                   Option  old;
+    
+    /**
+     * state
+     * returns the state of the application
+     *
+     * @return the state
+     */
+    public int state()
+    {
+        return state;
+    }
+    
+    /**
+     * menu
+     * displays the menu as specified in the variables
+     * menuName, secondLine, item and price
+     */
+    public void menu()
+    {
+        int ch;
+        int len=(this.item!=null)?this.item.length:0;
+        
+        this.welcome();
+        
+        do
+        {
+            Option.clearScreen();
+            System.out.println("customer: "+this.customer);
+            System.out.println("choice so far:");
+            if(this.old!=null)
+                this.old.write(true);
+            System.out.println("\t\t\t\t\t"+menuName);
+            
+            do
+            {
+                if(this.error!=null)
+                    System.out.println("\n\n\nError: "+this.error+"\n");
+                    
+                System.out.println("\t\t\t\t\t"+secondLine);
+                
+                for(int i=0; i<len; i++)
+                    System.out.println("\t\t\t\t\t"+(i+1)+"\t"+this.item[i]);
+                    
+                System.out.println("\t\t\t\t\t"+(len+1)+" or higher to go back");
+                
+                ch=this.getNum()-1;
+            }
+            while(this.error!=null);
+                    
+            if(ch>=0 && ch<len)
+            {
+               this.choice=ch;
+               this.nextChoice();
+            }
+        }
+        while(ch<len && this.state!=1);
+        
+    }
+    
+    /**
+     * welcome
+     * displays the welcome text and welcome file if present
+     *
+     */
+    public void welcome()
+    {
+        if(this.welcome!=null) 
+        {    
+            String spaces="                                                                                ";
+            for(int i=0; i<this.welcome.length(); i++)
+            {
+                
+                for(int j=40; j>i; j--)
+                {
+                    delay(3);
+                    clearScreen();
+                    System.out.printf("%n%n%n%n%n%n%n");
+                    System.out.printf("\t\t\t\t\t"+this.welcome.substring(0,i)
+                    +spaces.substring(i,j-1)+"%c",this.welcome.charAt(i));
+                }
+            }
+            
+            if(this.welcomeFile!=null)
+            {
+                int chr;
+                
+                FileReader fr;
+                
+                try
+                {
+                    fr=new FileReader(this.welcomeFile);
+                
+                    while((chr=fr.read())!=-1)
+                        System.out.printf("%c",chr);
+                }
+                catch(IOException e)
+                {
+                    System.out.print(e);
+                }
+            }
+            
+            System.out.println("\npress enter to continue..");
+
+            try
+            {
+                br.readLine();
+            }
+            catch(Exception e)
+            {
+            }
+        }
+    }
+    
+    /**
+     * nextChoice
+     * for each choice class, this function determines how to continue after
+     * user interaction
+     * 
+     * this function is abstract here. it must be overridden in every subclass
+     */
+    public abstract void nextChoice();
+    
+    /**
+     * write
+     * displays this - and possible predecessors - choice and price
+     * is used on one hand to display the users choice history
+     * on the other hand to print the bill
+     * behaves differently, depending on the argument
+     *
+     * @param writeSum  determines whether the history is printed (true)
+     *                  or the bill is printed (false)
+     *                  
+     * @return the sum of all prices unto that choice
+     */
+    public int write(boolean writeSum)
+    {
+        int sum;
+        
+        if(this.old!=null)
+            sum=this.old.write(writeSum)+this.price[this.choice];
+        else
+            sum=this.price[this.choice];
+            
+        if(this.item!=null)
+        {
+            if(writeSum||(this.price[this.choice]!=0))
+            {
+                if(!writeSum)
+                    System.out.printf("\t\t\t\t\t\t");
+             
+                System.out.printf("%16s:%16s",this.menuName,this.item[this.choice]);
+            }
+            if(this.price[this.choice]!=0)
+            {
+                System.out.printf("  $%10.2f",(double)this.price[this.choice]);
+
+                if(writeSum)
+                    System.out.printf("\n%32s   $%10.2f","->",(double)sum);
+            }
+            
+            System.out.println();
+        }
+        return sum;
+    }
+    
+    /**
+     * getNum
+     * waits for input, returns the input if a well formed integer number
+     * on exception, returns zero
+     *
+     * @return The return value
+     */
+    protected int getNum()
+    {
+        int i=0;
+        String s="";
+        
+        try
+        {
+            i=Integer.parseInt(s=br.readLine());
+            this.error=null;
+        }
+        catch(IOException ioe)
+        {
+        }
+        catch(NumberFormatException nfe)
+        {
+            this.error="\'"+s+"\' is not a number. Enter numeric values only!";
+        }
+
+        return i;
+    }
+    
+    /**
+     * Method clearScreen
+     * clears the screen. one way to clear screen, works with blueJ
+     */
+    public static void clearScreen()
+    {  
+        System.out.print('\u000C');
+        System.out.flush();
+    }
+    
+    /**
+     * Method delay
+     * waits for a given number of milliseconds
+     * ignores exception and breaks if so happens
+     *
+     * @param n milliseconds to wait
+     */
+    public static void delay(int n)
+    {
+        try
+        {
+            Thread.sleep(n);
+        }
+        catch(Exception e)
+        {}
+    }
+}

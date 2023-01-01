@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=MB
+comment1.params=old
+comment1.target=MB(Option)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ MB\r\n\ \r\n\ @param\ \ old\ \ the\ Option\ object\ prior\ to\ this\ one\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ and\ thus\ the\ chain\ of\ taken\ options\r\n
+comment2.params=
+comment2.target=void\ nextChoice()
+numComments=3

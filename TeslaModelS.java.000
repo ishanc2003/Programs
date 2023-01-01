@@ -1,0 +1,100 @@
+import java.io.*;
+
+/**
+ * Write a description of class TeslaModelS here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class TeslaModelS
+{
+ 
+
+    /**
+     * Constructor for objects of class TeslaModelS
+     */
+    public TeslaModelS()
+    {
+        // initialise instance variables
+        x = 0;
+    }
+
+     void menu() throws IOException
+    {
+        InputStreamReader isr=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(isr);
+        int ch;
+        do
+        {
+            System.out.println("\t\t\t\t\tTESLA");
+            System.out.println("\t\t\t\t\tchoose model");
+            System.out.println("\t\t\t\t\t1.Model S");
+            System.out.println("\t\t\t\t\t2.Model X");
+            System.out.println("\t\t\t\t\t3.Model 3");
+            System.out.println("\t\t\t\t\t4.Roadster");
+            System.out.println("\t\t\t\t\t5.<<BACK");
+            try
+            {
+                ch=Integer.parseInt(br.readLine());
+            }catch(NumberFormatException nfe)
+            {
+                ch=0;
+            }
+
+            switch(ch)
+            {
+                case 1:
+                item[cc]="Model S";
+                price[cc]=3500;
+                break;
+                case 2:
+                item[cc]="Model X";
+                price[cc]=2500;
+                break;
+                case 3:
+                item[cc]="Model 3";
+                price[cc]=2000;
+                break;
+                case 4:
+                item[cc]="Roadster";
+                price[cc]=1500;
+                break;
+                case 5:
+                break;
+                default:
+                System.out.println("Please enter a choice between 1 & 5");
+            }
+            if(ch>=1 && ch<=4)
+            {
+                while(true)
+                {
+                    System.out.println("Enter Quantity ");
+                    try
+                    {
+                        qty[cc]=Integer.parseInt(br.readLine());
+                    }
+                    catch(NumberFormatException nfe)
+                    {
+                        qty[cc]=0;
+                    }                
+                    if(qty[cc]>0)
+                    {
+                        cc++;
+                        break;
+                    }
+                }
+            }
+        }while(ch!=5);
+    }
+   /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public int sampleMethod(int y)
+    {
+        // put your code here
+        return x + y;
+    }
+}

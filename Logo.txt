@@ -1,0 +1,7 @@
+ 
+        II      CCCC     SSS
+        II     C    C   S    
+        II     C         SSS
+        II     C            S
+        II     C    C   S   S 
+        II      CCCC     SSS   

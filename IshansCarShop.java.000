@@ -1,0 +1,131 @@
+import java.io.*;
+
+class IshansCarShop extends Option
+{
+    Shoes sobj=new Shoes();
+    Tshirt tobj=new Tshirt();
+    
+    public void IshansCarShop()
+    {
+        this.old=null;
+        this.item=new String[]{"Tesla","Mercedes Benz", "Toyota", "Tata", "Honda"};
+        this.price=new int[]{1000,1500,800,500,500};
+        
+        this.menu(null);
+    }
+    
+    public void nextChoice()
+    {
+    }
+    
+
+    
+    void carMenu() throws IOException
+    {
+        InputStreamReader isr=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(isr);
+        int ch;
+        
+        do
+        {
+            System.out.println("\t\t\t\t\tishans car shop");
+            System.out.println("\t\t\t\t\tPlease choose your brand");
+            System.out.println("\t\t\t\t\t1.Tesla");
+            System.out.println("\t\t\t\t\t2.Mercedes Benz");
+            System.out.println("\t\t\t\t\t3.Toyota");
+            System.out.println("\t\t\t\t\t4.Tata");
+            System.out.println("\t\t\t\t\t5.Honda");
+            System.out.println("\t\t\t\t\t6.Bill");
+            System.out.println("\t\t\t\t\t7.<<EXIT>>");
+            
+            ch=Option.getKey(br);
+
+            switch(ch)
+            {
+                case 1:
+                this.option=new Tesla(this);
+                break;
+                case 2:
+                this.option=new MB(this);
+                break;
+                case 3:
+                this.option=new Toyota(this);
+                break;
+                case 4:
+                this.option=new Tata(this);
+                break;
+                case 5:
+                this.option=new Honda(this);
+                break;
+                case 6:
+                bill();
+                break;
+                case 6:
+                break;
+                default:
+                System.out.println("Please enter a choice between 1 & 6");
+            }
+        }
+        while(ch!=6);
+    }
+
+    void bill()
+    {
+        if(sobj.ss.sc==0 && sobj.cs.cc==0 && tobj.tc==0)
+        {
+            System.out.println("\t\t\t\tPLEASE BUY ITEMS FIRST");
+        }
+        else
+        {
+            double total=0,gtotal=0,gst=0,net=0;
+            int i,sn=1;
+            System.out.println("\n                               NIKE SHOW ROOM                      ");
+            System.out.println("     Sr. No     ITEM                PRICE     QUANTITY     TOTAL");
+            for(i=0;i<sobj.ss.sc;i++)
+            {
+                total=sobj.ss.price[i] * sobj.ss.qty[i];
+                gtotal+=total;
+                System.out.println("        "+sn+"       "+sobj.ss.item[i]+"     "+sobj.ss.price[i]+"       "+sobj.ss.qty[i]+"         "+total);
+                sn++;
+            }
+            for(i=0;i<sobj.cs.cc;i++)
+            {
+                total=sobj.ss.price[i] * sobj.ss.qty[i];
+                gtotal+=total;
+                System.out.println("        "+sn+"       "+sobj.ss.item[i]+"     "+sobj.ss.price[i]+"       "+sobj.ss.qty[i]+"         "+total);
+                sn++;
+            }
+            for(i=0;i<tobj.tc;i++)
+            {
+                total=tobj.price[i] * tobj.qty[i];
+                gtotal+=total;
+                System.out.println("        "+sn+"       "+tobj.colour[i]+"     "+tobj.price[i]+"       "+tobj.qty[i]+"         "+total);
+                sn++;
+            }
+
+            gst=gtotal*18.0/100;
+            net=gtotal+gst;
+            System.out.println("\n\n                     BILL AMOUNT IS "+net+"\n\n");
+            sobj.ss.sc=0;
+            sobj.cs.cc=0;
+            tobj.tc=0;
+        }
+    }
+
+    public static void clearScreen()
+    {  
+        System.out.print('\u000C');    //System.out.print("\033[H\033[2J");  
+        
+        //for(int i=0;i<100;i++)
+         //   System.out.print("\b");
+            
+        //System.out.flush();  
+        //System.out.println();
+        }
+    
+    public static void main() throws IOException
+    {
+        IshansCarShop shop=new IshansCarShop();
+        shop.carMenu();
+    }
+}

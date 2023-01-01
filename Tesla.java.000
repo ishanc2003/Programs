@@ -1,0 +1,79 @@
+import java.io.*;
+
+class Tesla
+{
+    public Tesla()
+    {
+        this.old=null;
+        this.item=new String[]{"Model S","Model X", "Model 3", "Roadster"};
+        this.price=new int[]{1000,1500,2000,2500};
+        
+        this.menu(null);
+    }
+
+    
+    
+    void menu() throws IOException
+    {
+        InputStreamReader isr=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(isr);
+        int ch;
+        do
+        {
+            System.out.println("\t\t\t\t\tTESLA");
+            System.out.println("\t\t\t\t\tchoose model");
+            System.out.println("\t\t\t\t\t1.Model S");
+            System.out.println("\t\t\t\t\t2.Model X");
+            System.out.println("\t\t\t\t\t3.Model 3");
+            System.out.println("\t\t\t\t\t4.Roadster");
+            System.out.println("\t\t\t\t\t5.<<BACK");
+    
+            ch=Option.getKey(br);
+            
+            switch(ch)
+            {
+                case 1:
+                item="Model S";
+                price=3500;
+                break;
+                case 2:
+                item="Model X";
+                price=2500;
+                break;
+                case 3:
+                item="Model 3";
+                price=2000;
+                break;
+                case 4:
+                item="Roadster";
+                price=1500;
+                break;
+                case 5:
+                break;
+                default:
+                System.out.println("Please enter a choice between 1 & 5");
+            }
+            if(ch>=1 && ch<=4)
+            {
+                while(true)
+                {
+                    System.out.println("Enter Quantity ");
+                    try
+                    {
+                        qty[cc]=Integer.parseInt(br.readLine());
+                    }
+                    catch(NumberFormatException nfe)
+                    {
+                        qty[cc]=0;
+                    }                
+                    if(qty[cc]>0)
+                    {
+                        cc++;
+                        break;
+                    }
+                }
+            }
+        }
+        while(ch!=5);
+    }
+}

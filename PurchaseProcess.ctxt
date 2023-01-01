@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=PurchaseProcess
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ PurchaseProcess\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=PurchaseProcess()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ PurchaseProcess\r\n\ no\ parameter\ because\ this\ is\ always\ the\ second\ object\ created,\ start\r\n\ of\ users\ choice\ history,\ and\ the\ first\ IshansCarShop\ object\ does\ not\r\n\ create\ any\ choice\ history\ element\r\n
+comment2.params=
+comment2.target=void\ nextChoice()
+numComments=3
